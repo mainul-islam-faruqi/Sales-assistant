@@ -1,5 +1,5 @@
 const express = require("express");
-const babyagi = require("./message.js");
+const babyagi = require("./babyagi.js");
 
 const app = express();
 
@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   res.send("Hello there");
 });
 
-app.post("/babyagi", babyagi);
+app.get("/babyagi", babyagi);
 // app.post("/qa", questionAndAnswer);
 
 module.exports = app;
