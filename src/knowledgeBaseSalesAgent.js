@@ -606,27 +606,27 @@ export class SalesGPT extends BaseChain {
   }
 }
 
-const config = {
-  salesperson_name: "Ted Lasso",
-  use_tools: true,
-  product_catalog: "sample_product_catalog.txt",
-};
+module.exports = async (message) => {
+  const config = {
+    salesperson_name: "Ted Lasso",
+    use_tools: true,
+    product_catalog: "sample_product_catalog.txt",
+  };
 
-const sales_agent = await SalesGPT.from_llm(llm, false, config);
+  const sales_agent = await SalesGPT.from_llm(llm, false, config);
 
 // init sales agent
-await sales_agent.seed_agent();
+  await sales_agent.seed_agent();
+  
+  let stageResponse = await sales_agent.determine_conversation_stage();
+  console.log(stageResponse);
+  
+  //     Conversation Stage: Introduction: Start the conversation by introducing yourself and your company. Be polite and respectful while keeping the tone of the conversation professional. Your greeting should be welcoming. Always clarify in your greeting the reason why you are contacting the prospect.
 
-let stageResponse = await sales_agent.determine_conversation_stage();
-console.log(stageResponse);
-
-//     Conversation Stage: Introduction: Start the conversation by introducing yourself and your company. Be polite and respectful while keeping the tone of the conversation professional. Your greeting should be welcoming. Always clarify in your greeting the reason why you are contacting the prospect.
-
-let stepResponse = await sales_agent.step();
-console.log(stepResponse);
-
-//    Ted Lasso:  Hello, this is Ted Lasso from Sleep Haven. How are you doing today?
-
+  let stepResponse = await sales_agent.step();
+  console.log(stepResponse);
+  //    Ted Lasso:  Hello, this is Ted Lasso from Sleep Haven. How are you doing today?
+  
 await sales_agent.human_step(
   "I am well, how are you? I would like to learn more about your mattresses."
 );
@@ -638,7 +638,8 @@ console.log(stageResponse);
 
 stepResponse = await sales_agent.step();
 console.log(stepResponse);
-//    Ted Lasso:  I'm glad to hear that you're doing well! As for our mattresses, at Sleep Haven, we provide customers with the most comfortable and supportive sleeping experience possible. Our high-quality mattresses are designed to meet the unique needs of our customers. Can I ask what specifically you'd like to learn more about?
+  //    Ted Lasso:  I'm glad to hear that you're doing well! As for our mattresses, at Sleep Haven, we provide customers with the most comfortable and supportive sleeping experience possible. Our high-quality mattresses are designed to meet the unique needs of our customers. Can I ask what specifically you'd like to learn more about?
+  
 
 await sales_agent.human_step(
   "Yes, what materials are you mattresses made from?"
@@ -651,3 +652,4 @@ console.log(stageResponse);
 stepResponse = await sales_agent.step();
 console.log(stepResponse);
 //    Ted Lasso:  Our mattresses are made from a variety of materials, depending on the model. We have the EcoGreen Hybrid Latex Mattress, which is made from 100% natural latex harvested from eco-friendly plantations. The Plush Serenity Bamboo Mattress features a layer of plush, adaptive foam and a base of high-resilience support foam, with a bamboo-infused top layer. The Luxury Cloud-Comfort Memory Foam Mattress has an innovative, temperature-sensitive memory foam layer and a high-density foam base with cooling gel-infused particles. Finally, the Classic Harmony Spring Mattress has a robust inner spring construction and layers of plush padding, with a quilted top layer and a natural cotton cover. Is there anything specific you'd like to know about these materials?
+}

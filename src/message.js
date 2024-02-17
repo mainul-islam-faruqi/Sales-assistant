@@ -4,6 +4,7 @@ const transcript = require("./transcript.js");
 const imageTranscript = require("./imageTranscript.js")
 const config = require("../config/config.js");
 const whatsappChatbot = require("./whatsappChatbot")
+const knowledgeBaseSalesAgent = require("./knowledgeBaseSalesAgent.js")
 const client = require('twilio')(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
 
 module.exports = async (req, res) => {
@@ -29,7 +30,9 @@ module.exports = async (req, res) => {
 
     // Process message with OpenAI's GPT API and return response
     
-    const response = await whatsappChatbot(message, req.body.MediaContentType0 && req.body.MediaContentType0.includes("image")? true: false);
+    const response = await whatsappChatbot(message, req.body.MediaContentType0 && req.body.MediaContentType0.includes("image") ? true : false);
+    
+    const result = await knowledgeBaseSalesAgent(message)
    
     if (response.error) {
       // handle error, maybe send a message about the error to WhatsApp

@@ -1,4 +1,4 @@
-const config = require("./config/config.js");
+const config = require("../config/config.js");
 const { BabyAGI } = require("langchain/experimental/babyagi");
 const { MemoryVectorStore } = require("langchain/vectorstores/memory");
 const { OpenAIEmbeddings, OpenAI } = require("@langchain/openai");

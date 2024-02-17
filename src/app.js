@@ -1,4 +1,5 @@
 const express = require("express");
+const message = require("./message.js");
 const babyagi = require("./babyagi.js");
 
 const app = express();
@@ -10,6 +11,7 @@ app.get("/", (req, res) => {
   res.send("Hello there");
 });
 
+app.post("/message", message);
 app.get("/babyagi", babyagi);
 // app.post("/qa", questionAndAnswer);
 
